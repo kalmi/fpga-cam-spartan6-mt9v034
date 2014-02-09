@@ -1,0 +1,16 @@
+*.prj
+
+/_xmsgs
+/iseconfig
+/isim
+
+*.ini
+*.gise
+*.log
+*.xmsgs
+*.cmd
+*.log
+*.exe
+*.html
+*.prj
+*.wdb
