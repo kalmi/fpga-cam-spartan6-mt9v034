@@ -3,7 +3,7 @@
 module uart_send(
   input RST,
   input CLK,
-  input UART_CLK,	//Must not be 1 for longer than a single CLK
+  input UART_CLK,	// Divided clock: 1 MHz
   input [7:0] DATA,
   input DATA_READY,	// Send enable (Samples the DATA input, and starts sending it.)
   output TXD, // Serial DATA out
