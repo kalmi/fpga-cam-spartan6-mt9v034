@@ -14,3 +14,8 @@
 *.html
 *.prj
 *.wdb
+*.lso
+*.stx
+*.xst
+*.sdbl
+*.sdbx

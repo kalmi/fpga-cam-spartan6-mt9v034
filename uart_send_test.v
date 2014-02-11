@@ -108,22 +108,18 @@ module uart_send_test;
 		TXD_EXPECTED <= 0; //MSB
 		#50;
 		TXD_EXPECTED <= 1; //STOP
-		#150;
-		$finish;
 	end
 	
-	integer i;
 	reg error;
-	initial begin
-		for (i = 0; ~error; i = i + 1) begin 
-			#1 if(TXD_DEVIATION)
-				begin
-					$display("**** ERROR@%d ****", i);
-					$display("Not displaying further errors in this module");
-					error=1;
-				end
-		end 
-	end
+   always begin
+      #1;
+		if(TXD_DEVIATION&~error)
+		begin
+			$display("**** ERROR@%d ****", $time);
+			$display("Not displaying further errors in this module");
+			error=1;
+		end
+   end
 	
 	always #5 CLK <= ~CLK;
 	
@@ -140,6 +136,4 @@ module uart_send_test;
 		UART_CLK <= 0;
    end;
 	
-	
 endmodule
-
