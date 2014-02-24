@@ -22,9 +22,6 @@ PIN "clk_m/clkout1_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;
 PIN "clk_m/clkout3_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;
 
 
-
-
-
 NET "clk" LOC = P56;
 NET "rxd" LOC = P112;
 NET "txd" LOC = P111;
@@ -42,46 +39,3 @@ NET "debug[10]" LOC = P120;
 NET "debug[11]" LOC = P123;
 NET "debug[12]" LOC = P126;
 NET "debug[13]" LOC = P131;
-
-//Camera module
-
-
-# PlanAhead Generated IO constraints 
-
-NET "camdata[0]" IOSTANDARD = LVCMOS33;
-NET "camdata[1]" IOSTANDARD = LVCMOS33;
-NET "camdata[2]" IOSTANDARD = LVCMOS33;
-NET "camdata[3]" IOSTANDARD = LVCMOS33;
-NET "camdata[4]" IOSTANDARD = LVCMOS33;
-NET "camdata[5]" IOSTANDARD = LVCMOS33;
-NET "camdata[6]" IOSTANDARD = LVCMOS33;
-NET "camdata[7]" IOSTANDARD = LVCMOS33;
-NET "camdata[8]" IOSTANDARD = LVCMOS33;
-NET "camdata[9]" IOSTANDARD = LVCMOS33;
-
-# PlanAhead Generated physical constraints 
-
-NET "camdata[0]" LOC = P101;
-NET "camdata[1]" LOC = P100;
-NET "camdata[2]" LOC = P99;
-NET "camdata[3]" LOC = P98;
-NET "camdata[4]" LOC = P97;
-NET "camdata[5]" LOC = P95;
-NET "camdata[6]" LOC = P94;
-NET "camdata[7]" LOC = P93;
-NET "camdata[8]" LOC = P105;
-NET "camdata[9]" LOC = P102;
-
-# PlanAhead Generated IO constraints 
-
-NET "extclk" IOSTANDARD = LVCMOS33;
-NET "frmv" IOSTANDARD = LVCMOS33;
-NET "linv" IOSTANDARD = LVCMOS33;
-NET "pixclk" IOSTANDARD = LVCMOS33;
-
-# PlanAhead Generated physical constraints 
-
-NET "extclk" LOC = P84;
-NET "frmv" LOC = P88;
-NET "linv" LOC = P87;
-NET "pixclk" LOC = P92;
