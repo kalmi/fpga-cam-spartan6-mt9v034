@@ -48,3 +48,7 @@
 *.txt
 *.xml
 *.xbcd
+*.xsl
+*.ipf
+*.lock
+*
