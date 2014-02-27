@@ -10,31 +10,22 @@ module topmodule(
 
 assign debug = 0;
 
-reg its_sampling_time;
-
-clk_wiz_v3_6 clk_m(CLK, CLK1, CLK2, CLK3);
-baud baud(CLK1, RST, RXD_EN, TXD_EN);
-
-wire [7:0] data_wire;
-wire [7:0] data_in;
 reg [7:0] r;
 reg data_ready;
 
-uart_receive uut1 (
+counter #(5'b11010) counter_txd_en(
+	.CLK(CLK),
 	.RST(RST),
-	.CLK(CLK1),
-	.RXD(RXD),
-	.REC_EN(RXD_EN),
-	.DATA(data_in),
-	.RXD_READY(DATA_RECEIVED_READY)
+	.MAXED(TXD_EN),
+	.EN(1'b1)
 );
 
 uart_send uut2 (
 	.RST(RST), 
-	.CLK(CLK1), 
+	.CLK(CLK), 
 	.TXD(TXD), 
 	.UART_CLK(TXD_EN), 
-	.DATA(data_wire), 
+	.DATA(r), 
 	.DATA_READY(data_ready), 
 	.IDLE(SENDER_IDLE)
 );
@@ -42,23 +33,13 @@ uart_send uut2 (
 
 assign data_wire = r;
 
+reg preamble;
+
 reg prev_SENDER_IDLE;
-//reg prev_DATA_RECEIVED_READY = 0;
-always@(posedge CLK1)
+always@(posedge CLK)
 begin
 	prev_SENDER_IDLE <= SENDER_IDLE & !RST;
-/*
-	prev_DATA_RECEIVED_READY <= DATA_RECEIVED_READY;
-	 //its_sampling_time <= DATA_RECEIVED_READY && SENDER_IDLE;
-	if(DATA_RECEIVED_READY && !prev_DATA_RECEIVED_READY)
-	begin
-		r <= data_in;
-		data_ready <=1;
-	end
-	else
-	begin
-		data_ready <=0;
-	end*/
+
 	if(RST)
 	begin
 		r <= 48;

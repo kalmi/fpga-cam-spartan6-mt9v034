@@ -18,9 +18,6 @@ NET "debug[11]" IOSTANDARD = LVCMOS33;
 NET "debug[12]" IOSTANDARD = LVCMOS33;
 NET "debug[13]" IOSTANDARD = LVCMOS33;
 
-PIN "clk_m/clkout1_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;
-PIN "clk_m/clkout3_buf.O" CLOCK_DEDICATED_ROUTE = FALSE;
-
 
 NET "clk" LOC = P56;
 NET "rxd" LOC = P112;
