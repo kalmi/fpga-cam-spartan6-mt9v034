@@ -3,36 +3,8 @@
 NET "clk" IOSTANDARD = LVCMOS33;
 NET "rxd" IOSTANDARD = LVCMOS33;
 NET "txd" IOSTANDARD = LVCMOS33;
-NET "debug[0]" IOSTANDARD = LVCMOS33;
-NET "debug[1]" IOSTANDARD = LVCMOS33;
-NET "debug[2]" IOSTANDARD = LVCMOS33;
-NET "debug[3]" IOSTANDARD = LVCMOS33;
-NET "debug[4]" IOSTANDARD = LVCMOS33;
-NET "debug[5]" IOSTANDARD = LVCMOS33;
-NET "debug[6]" IOSTANDARD = LVCMOS33;
-NET "debug[7]" IOSTANDARD = LVCMOS33;
-NET "debug[8]" IOSTANDARD = LVCMOS33;
-NET "debug[9]" IOSTANDARD = LVCMOS33;
-NET "debug[10]" IOSTANDARD = LVCMOS33;
-NET "debug[11]" IOSTANDARD = LVCMOS33;
-NET "debug[12]" IOSTANDARD = LVCMOS33;
-NET "debug[13]" IOSTANDARD = LVCMOS33;
 
 
 NET "clk" LOC = P56;
 NET "rxd" LOC = P112;
 NET "txd" LOC = P111;
-NET "debug[0]" LOC = P115;
-NET "debug[1]" LOC = P117;
-NET "debug[2]" LOC = P119;
-NET "debug[3]" LOC = P121;
-NET "debug[4]" LOC = P124;
-NET "debug[5]" LOC = P127;
-NET "debug[6]" LOC = P132;
-NET "debug[7]" LOC = P114;
-NET "debug[8]" LOC = P116;
-NET "debug[9]" LOC = P118;
-NET "debug[10]" LOC = P120;
-NET "debug[11]" LOC = P123;
-NET "debug[12]" LOC = P126;
-NET "debug[13]" LOC = P131;

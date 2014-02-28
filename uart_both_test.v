@@ -8,8 +8,6 @@ module uart_both_test;
 	reg [7:0] i;
 	
 	wire LINE;
-	wire TXD_EN;
-	wire RXD_EN;
 	
 	wire SENDER_IDLE; 
 
@@ -19,25 +17,20 @@ module uart_both_test;
 
 	uart_receive uut1 (
 		.RST(RST),
-		.CLK(CLK1),
+		.CLK(CLK),
 		.RXD(LINE),
-		.REC_EN(RXD_EN),
 		.DATA(DATA_RECEIVED),
 		.RXD_READY(DATA_RECEIVED_READY)
 	);
 	
 	uart_send uut2 (
 		.RST(RST), 
-		.CLK(CLK1), 
-		.UART_CLK(TXD_EN), 
+		.CLK(CLK),
 		.DATA(DATA_TO_BE_SENT), 
 		.DATA_READY(DATA_TO_BE_SENT_READY), 
 		.TXD(LINE), 
 		.IDLE(SENDER_IDLE)
 	);
-	
-	baud baud(CLK1, RST, RXD_EN, TXD_EN);
-	clk_wiz_v3_6 clk_m(CLK, CLK1, CLK2, CLK3 );
 
 	initial begin
 		// Initialize Inputs

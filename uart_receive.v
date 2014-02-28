@@ -4,7 +4,6 @@ module uart_receive(
 	input RST,
 	input CLK,
 	input RXD, //Serial data in
-	input REC_EN, // Receive enable
 	output reg [7:0] DATA, // Input data 8 bit
 	output reg RXD_READY // Data received
 	);
@@ -18,7 +17,7 @@ counter #(26) intra_bit_counter_(
 		.RST(RST|bit_rst),
 		.MAXED(next_bit),
 		.VALUE(intra_bit_counter),
-		.EN(REC_EN)
+		.EN(1'b1)
 	);
 	
 counter #(10) state_counter(
@@ -52,7 +51,7 @@ begin
 		RXD_READY <= 0;
 	end
 	
-	if(REC_EN)
+	if(1'b1)
 	begin
 		last6 <= {last6[4:0], RXD};
 		
