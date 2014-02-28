@@ -1,27 +1,5 @@
 `timescale 1ns / 1ps
 
-////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer:
-//
-// Create Date:   09:23:15 02/27/2014
-// Design Name:   topmodule
-// Module Name:   C:/Users/kalmi/Dropbox/Suli/onlab/repo/toplevel_test.v
-// Project Name:  fpga_cam
-// Target Device:  
-// Tool versions:  
-// Description: 
-//
-// Verilog Test Fixture created by ISE for module: topmodule
-//
-// Dependencies:
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-////////////////////////////////////////////////////////////////////////////////
-
 module toplevel_test;
 
 	// Inputs
