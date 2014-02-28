@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module counter(
+module counter #(parameter MAX = 1'bX) (
 	input CLK,
 	input RST,
 	input EN,
@@ -10,8 +10,6 @@ module counter(
 
 	reg [$clog2(MAX):0] value;
 	assign VALUE = value;
-
-	parameter MAX = 0;
 	
 	assign MAXED = (value==MAX);
 	
@@ -20,7 +18,7 @@ module counter(
 		if(RST|(MAXED&EN))
 			value <= 0;
 		else if(EN)
-			value <= value+1;
+			value <= value + 1'b1;
 	end
 
 endmodule
