@@ -9,15 +9,13 @@ module toplevel_test;
 
 	// Outputs
 	wire TXD;
-	wire [13:0] debug;
 
 	// Instantiate the Unit Under Test (UUT)
 	topmodule uut (
 		.RST(RST), 
 		.CLK(CLK), 
 		.RXD(RXD), 
-		.TXD(TXD), 
-		.debug(debug)
+		.TXD(TXD)
 	);
 
 	initial begin
