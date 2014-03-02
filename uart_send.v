@@ -20,13 +20,14 @@ module uart_send(
 reg [3:0] counter; // State Machine: 0=PRESTART(still idle), 1=START, 2=LSB, ..., 9=MSB, 10=STOP
 reg [7:0] data; // Sampled data
 
-wire START_BIT = 1'b0;
-wire STOP_BIT  = 1'b1;
+localparam START_BIT = 1'b0;
+localparam STOP_BIT  = 1'b1;
 wire framed_data[0:10] = {STOP_BIT, START_BIT, data_reversed, STOP_BIT};
 wire [7:0] data_reversed = {data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]};
 wire data_sampling = DATA_READY&IDLE; 
 
 wire current_bit = framed_data[counter];
+
 assign TXD = current_bit|IDLE; //High stands for idle
 assign IDLE = (counter==10);
 
