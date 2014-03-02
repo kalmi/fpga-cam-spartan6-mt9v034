@@ -16,20 +16,20 @@ uart_send uut2 (
 	.TXD(TXD),
 	.DATA(r), 
 	.DATA_READY(data_ready), 
-	.IDLE(SENDER_IDLE)
+	.IDLE(sender_idle)
 );
 
-reg prev_SENDER_IDLE;
+reg prev_sender_idle;
 always@(posedge CLK)
 begin
-	prev_SENDER_IDLE <= SENDER_IDLE & !RST;
+	prev_sender_idle <= sender_idle & !RST;
 
 	if(RST)
 	begin
 		r <= "0";
 		data_ready <= 0;
 	end
-	else if((SENDER_IDLE & !prev_SENDER_IDLE))
+	else if((sender_idle & !prev_sender_idle))
 	begin
 		data_ready <= 1;
 		if(r < "9")
