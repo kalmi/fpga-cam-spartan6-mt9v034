@@ -29,7 +29,7 @@ wire data_sampling = DATA_READY&IDLE;
 wire current_bit = framed_data[counter];
 
 assign TXD = current_bit|IDLE; //High stands for idle
-assign IDLE = (counter==10);
+assign IDLE = (counter+next_bit >= 10);
 
 always @(posedge CLK)
 begin
