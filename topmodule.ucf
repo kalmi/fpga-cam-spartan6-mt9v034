@@ -7,4 +7,4 @@ NET "txd" IOSTANDARD = LVCMOS33;
 
 NET "clk" LOC = P56;
 NET "rxd" LOC = P112;
-NET "txd" LOC = P111;
+NET "txd" LOC = P111 | SLEW = "FAST";
