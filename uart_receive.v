@@ -57,7 +57,7 @@ begin
 		
 		if(state>=2 && state<=9 && intra_bit_counter==15)
 		begin
-			data[state-2] <= majority_of_last3;
+			data <= {majority_of_last3, data[7:1]}; // Shift
 			RXD_READY <= 0;
 			//DATA <= 8'bXXXXXXXX;
 		end
