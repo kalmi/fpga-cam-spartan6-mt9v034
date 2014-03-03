@@ -4,7 +4,7 @@ module uart_receive(
 	input RST,
 	input CLK,
 	input RXD, //Serial data in
-	output reg [7:0] DATA, // Input data 8 bit
+	output [7:0] DATA, // Input data 8 bit
 	output reg RXD_READY // Data received
 	);
 
@@ -44,6 +44,8 @@ wire [2:0] last3 = last6[2:0];
 wire majority_of_last3 = ((last3[0]&last3[1])|(last3[2]&last3[1])|(last3[2]&last3[0]));
 reg [7:0] data;
 
+assign DATA = data;
+
 always @(posedge CLK)
 begin
 	if(RST)
@@ -51,7 +53,7 @@ begin
 		RXD_READY <= 0;
 	end
 	
-	if(1'b1)
+	if(1'b1) //enable
 	begin
 		last6 <= {last6[4:0], RXD};
 		
@@ -59,13 +61,11 @@ begin
 		begin
 			data <= {majority_of_last3, data[7:1]}; // Shift
 			RXD_READY <= 0;
-			//DATA <= 8'bXXXXXXXX;
 		end
 	end
 	
 	if(state_maxed)
 	begin
-		DATA <= data;
 		RXD_READY <= 1;
 	end
 	
