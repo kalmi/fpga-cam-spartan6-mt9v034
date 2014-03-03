@@ -18,30 +18,36 @@ module uart_send(
 	);
 
 reg [3:0] counter; // State Machine: 0=PRESTART(still idle), 1=START, 2=LSB, ..., 9=MSB, 10=STOP
-reg [7:0] data; // Sampled data
+reg [0:10] shr; // Sampled framed_data (that gets shifted when "next_bit")
 
 localparam START_BIT = 1'b0;
 localparam STOP_BIT  = 1'b1;
-wire framed_data[0:10] = {STOP_BIT, START_BIT, data_reversed, STOP_BIT};
-wire [7:0] data_reversed = {data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7]};
-wire data_sampling = DATA_READY&IDLE; 
+wire [0:10] framed_data = {STOP_BIT, START_BIT, data_reversed, STOP_BIT};
+wire [7:0] data_reversed = {DATA[0], DATA[1], DATA[2], DATA[3], DATA[4], DATA[5], DATA[6], DATA[7]};
 
-wire current_bit = framed_data[counter];
+wire data_sampling = DATA_READY&IDLE;
 
+wire current_bit = shr[0];
 assign TXD = current_bit;
 assign IDLE = (counter+next_bit >= 10);
 
 always @(posedge CLK)
 begin
 	if(RST)
+	begin
+		shr[0] <= 1'b1;
 		counter<=10;
+	end
 	else if(data_sampling)
+	begin
 		counter<=0;
+		shr <= framed_data;
+	end
 	else if(next_bit && counter!==10)
+	begin
 		counter<=(counter + 1'b1);
-	
-  if(data_sampling)
-    data<=DATA;
+		shr <= (shr<<1);
+	end
 end
 
 endmodule
