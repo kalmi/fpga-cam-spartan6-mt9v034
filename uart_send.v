@@ -25,11 +25,12 @@ localparam STOP_BIT  = 1'b1;
 wire [0:10] framed_data = {STOP_BIT, START_BIT, data_reversed, STOP_BIT};
 wire [7:0] data_reversed = {DATA[0], DATA[1], DATA[2], DATA[3], DATA[4], DATA[5], DATA[6], DATA[7]};
 
-wire data_sampling = DATA_READY&IDLE;
+wire data_sampling = DATA_READY&idle;
 
 wire current_bit = shr[0];
 assign TXD = current_bit;
-assign IDLE = (counter+next_bit >= 10);
+wire idle = counter+next_bit >= 10;
+assign IDLE = (idle && !DATA_READY);
 
 always @(posedge CLK)
 begin

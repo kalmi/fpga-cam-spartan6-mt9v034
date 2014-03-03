@@ -29,7 +29,7 @@ module uart_receive_test;
 		// Wait 100 ns for global reset to finish
 		#100;
 		RST = 0;
-		#1000;
+		#5000;
 		
 		//...STOP, START, 1, 0, 1, 0, 1, 0, 1, 0, STOP... 
 		RXD = 0;
