@@ -11,16 +11,16 @@ reg [7:0] r;
 wire [7:0] received_data;
 reg pending_send = 0;
 
-uart_send uut2 (
+uart_send uart_send (
 	.RST(RST), 
 	.CLK(CLK), 
 	.TXD(TXD),
 	.DATA(r), 
 	.DATA_READY(pending_send), 
-	.IDLE(sender_idle)
+	.IDLE()
 );
 
-uart_receive uut3 (
+uart_receive uart_receive (
 	.RST(RST), 
 	.CLK(CLK), 
 	.RXD(RXD),

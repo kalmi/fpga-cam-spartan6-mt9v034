@@ -8,9 +8,9 @@ module uart_receive(
 	output reg RXD_READY // Data received
 	);
 
-wire [5:0] intra_bit_counter;
-wire [4:0] state;
-reg finished;
+wire [4:0] intra_bit_counter;
+wire [3:0] state;
+reg finished = 0;
 
 counter #(26) intra_bit_counter_(
 		.CLK(CLK),
@@ -39,7 +39,7 @@ assign bit_rst = (state==0) && !start_series;
 assign start   = (state==0) &&  start_series;
 
 
-reg [5:0] last6;
+reg [5:0] last6 = 6'b000000;
 wire [2:0] last3 = last6[2:0];
 wire majority_of_last3 = ((last3[0]&last3[1])|(last3[2]&last3[1])|(last3[2]&last3[0]));
 reg [7:0] data;

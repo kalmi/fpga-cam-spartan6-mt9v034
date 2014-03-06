@@ -4,11 +4,11 @@ module counter #(parameter MAX = 1'bX) (
 	input CLK,
 	input RST,
 	input EN,
-	output [$clog2(MAX):0] VALUE,
+	output [$clog2(MAX)-1:0] VALUE,
 	output MAXED
 	);
 
-	reg [$clog2(MAX):0] value;
+	reg [$clog2(MAX)-1:0] value;
 	assign VALUE = value;
 	
 	assign MAXED = (value==MAX);
