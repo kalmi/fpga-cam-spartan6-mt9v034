@@ -8,7 +8,7 @@ module counter #(parameter MAX = 1'bX) (
 	output MAXED
 	);
 
-	reg [$clog2(MAX)-1:0] value;
+	reg [$clog2(MAX)-1:0] value = 0;
 	assign VALUE = value;
 	
 	assign MAXED = (value==MAX);
