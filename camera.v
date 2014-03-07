@@ -62,7 +62,7 @@ counter #(V) current_column_counter(
 	.CLK(PIXCLK),
 	.RST(!LINE_VALID||!frame_start_seen),
 	.MAXED(),
-	.EN(LINE_VALID),
+	.EN(prev_line_valid),
 	.VALUE(CURRENT_COLUMN)
 );
 
