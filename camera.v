@@ -28,12 +28,18 @@ begin
 end
 
 reg frame_start_seen = 0;
+wire frame_start_seen_now = (FRAME_VALID && !prev_frame_valid) || frame_start_seen;
 always @ (posedge PIXCLK)
 begin
-	frame_start_seen <= (FRAME_VALID && !prev_frame_valid);
+	frame_start_seen <= frame_start_seen_now;
 end
 
-assign PIXEL_VALID = (frame_start_seen && LINE_VALID && FRAME_VALID);
+reg pixel_valid = 0;
+assign PIXEL_VALID = pixel_valid;
+always @ (posedge PIXCLK)
+begin
+	pixel_valid <= (frame_start_seen_now && LINE_VALID && FRAME_VALID);
+end
 
 
 reg prev_line_valid = 0;
@@ -46,7 +52,7 @@ wire line_ended = (prev_line_valid && !LINE_VALID);
 
 counter #(H) current_line_counter(
 	.CLK(PIXCLK),
-	.RST(!FRAME_VALID),
+	.RST(!FRAME_VALID||!frame_start_seen),
 	.MAXED(),
 	.EN(line_ended),
 	.VALUE(CURRENT_LINE)
@@ -54,7 +60,7 @@ counter #(H) current_line_counter(
 
 counter #(V) current_column_counter(
 	.CLK(PIXCLK),
-	.RST(!LINE_VALID),
+	.RST(!LINE_VALID||!frame_start_seen),
 	.MAXED(),
 	.EN(LINE_VALID),
 	.VALUE(CURRENT_COLUMN)
