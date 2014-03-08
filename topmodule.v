@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module topmodule(
+module topmodule #(parameter H = 752, parameter V = 480) (
 	input RST,
 	input CLK,
 	
@@ -16,8 +16,6 @@ module topmodule(
 	output CAM_SYSCLK
 	);
 
-localparam H = 752;
-localparam V = 480;
 reg [$clog2(H)-1:0] selected_line = 0;
 reg [$clog2(V)-1:0] selected_column = 0;
 
@@ -121,6 +119,7 @@ begin
 			else
 			begin
 				selected_line <= selected_line+1'b1;
+				reset_buffer_ready_flag <= 1;
 			end
 		end
 	end

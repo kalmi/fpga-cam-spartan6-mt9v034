@@ -20,7 +20,7 @@
     </file>
     <file xil_pn:name="uart_send.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
     </file>
     <file xil_pn:name="uart_send_test.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -30,7 +30,7 @@
     </file>
     <file xil_pn:name="uart_receive.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="3"/>
     </file>
     <file xil_pn:name="uart_receive_test.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -50,7 +50,7 @@
     </file>
     <file xil_pn:name="topmodule.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="0"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="6"/>
     </file>
     <file xil_pn:name="toplevel_test.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -60,7 +60,7 @@
     </file>
     <file xil_pn:name="camera.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="3"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="2"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="5"/>
     </file>
     <file xil_pn:name="camera_test.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="0"/>
@@ -70,7 +70,7 @@
     </file>
     <file xil_pn:name="camera_buffer.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="2"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="84"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="4"/>
     </file>
     <file xil_pn:name="line_buffer_test.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="4"/>
@@ -333,7 +333,7 @@
     <property xil_pn:name="Shift Register Minimum Size spartan6" xil_pn:value="2" xil_pn:valueState="default"/>
     <property xil_pn:name="Show All Models" xil_pn:value="false" xil_pn:valueState="default"/>
     <property xil_pn:name="Simulation Model Target" xil_pn:value="Verilog" xil_pn:valueState="default"/>
-    <property xil_pn:name="Simulation Run Time ISim" xil_pn:value="0.4 us" xil_pn:valueState="non-default"/>
+    <property xil_pn:name="Simulation Run Time ISim" xil_pn:value="90 us" xil_pn:valueState="non-default"/>
     <property xil_pn:name="Simulation Run Time Map" xil_pn:value="1000 ns" xil_pn:valueState="default"/>
     <property xil_pn:name="Simulation Run Time Par" xil_pn:value="1000 ns" xil_pn:valueState="default"/>
     <property xil_pn:name="Simulation Run Time Translate" xil_pn:value="1000 ns" xil_pn:valueState="default"/>
