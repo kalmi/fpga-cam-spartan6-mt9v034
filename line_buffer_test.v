@@ -58,7 +58,7 @@ module line_buffer_test;
 		PIXCLK = 0;
 		INTERESTING_LINE = 1;
 		DATA_IN = 0;
-		READ_ADDRESS = 0;
+		READ_ADDRESS = 1'bX;
 		RESET_READY_FLAG = 0;
 
 	end
@@ -73,42 +73,53 @@ module line_buffer_test;
 		DATA_IN = 0;
 		// Test ignoring of random already ongoing frame
 		#42;
-		LINE_VALID = 0;
-		FRAME_VALID = 0;
-		#20;
-		
-		FRAME_VALID = 1;
-		#10;
-		
-		LINE_VALID = 1;
-		DATA_IN = 11;
-		#10
-		LINE_VALID = 1;
-		DATA_IN = 12;
-		#10
-		LINE_VALID = 0;
-		#10
-		
-		LINE_VALID = 1;
-		DATA_IN = 21;
-		#10
-		LINE_VALID = 1;
-		DATA_IN = 22;
-		#10
-		LINE_VALID = 0;
-		#10
-		
-		LINE_VALID = 1;
-		DATA_IN = 31;
-		#10
-		LINE_VALID = 1;
-		DATA_IN = 32;
-		#10
-		LINE_VALID = 0;
-		#10
-		
-		FRAME_VALID = 0;
-
+		forever
+		begin
+			LINE_VALID = 0;
+			FRAME_VALID = 0;
+			#20;
+			
+			FRAME_VALID = 1;
+			#10;
+			
+			LINE_VALID = 1;
+			DATA_IN = 11;
+			#10
+			LINE_VALID = 1;
+			DATA_IN = 12;
+			#10
+			LINE_VALID = 0;
+			#10
+			
+			LINE_VALID = 1;
+			DATA_IN = 21;
+			#10
+			LINE_VALID = 1;
+			DATA_IN = 22;
+			#10
+			LINE_VALID = 0;
+			#10
+			
+			LINE_VALID = 1;
+			DATA_IN = 31;
+			#10
+			LINE_VALID = 1;
+			DATA_IN = 32;
+			#10
+			LINE_VALID = 0;
+			#30;
+			#8;
+			READ_ADDRESS = 1'b0;
+			#10;
+			READ_ADDRESS = 1'b1;
+			#10;
+			RESET_READY_FLAG = 1;
+			READ_ADDRESS = 1'bX;
+			#10;
+			RESET_READY_FLAG = 0;
+			#2;
+			#30;
+		end
 	end
       
 	always #5 PIXCLK <= ~PIXCLK;
