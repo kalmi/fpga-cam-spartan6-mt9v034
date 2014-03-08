@@ -3,44 +3,132 @@
 module topmodule(
 	input RST,
 	input CLK,
-	input RXD,
-	output TXD
+	
+	//UART
+	input UART_RXD,
+	output UART_TXD,
+	
+	//CAMERA
+	input CAM_PIXCLK,
+	input CAM_FRAME_VALID,
+	input CAM_LINE_VALID,
+	input [9:0] CAM_DATA,
+	output CAM_SYSCLK
 	);
 
+localparam H = 752;
+localparam V = 480;
+reg [$clog2(H)-1:0] selected_line = 0;
+reg [$clog2(V)-1:0] selected_column = 0;
+
+wire [9:0] CAPTURED_DATA;
+wire [$clog2(H)-1:0] CAPTURED_CURRENT_LINE;
+wire [$clog2(V)-1:0] CAPTURED_CURRENT_COLUMN;
+wire CAPTURED_PIXEL_VALID;
+assign CAM_SYSCLK = CLK;
+camera #(H,V) camera (
+	//inputs:
+	.PIXCLK(CAM_PIXCLK), 
+	.FRAME_VALID(CAM_FRAME_VALID),
+	.LINE_VALID(CAM_LINE_VALID), 
+	.DATA_IN(CAM_DATA), 
+	//outputs:
+	.DATA_OUT(CAPTURED_DATA), 
+	.CURRENT_LINE(CAPTURED_CURRENT_LINE), 
+	.CURRENT_COLUMN(CAPTURED_CURRENT_COLUMN), 
+	.PIXEL_VALID(CAPTURED_PIXEL_VALID)
+);
+
+wire [9:0] SELECTED_PIXEL_DATA;
+reg reset_buffer_ready_flag;
+line_buffer #(H,V) line_buffer (
+	//inputs:
+	.CLK(CLK), 
+	.VALID_DATA(CAPTURED_PIXEL_VALID), 
+	.CURRENT_COLUMN(CAPTURED_CURRENT_COLUMN), 
+	.CURRENT_LINE(CAPTURED_CURRENT_LINE), 
+	.INTERESTING_LINE(selected_line), 
+	.DATA_IN(CAPTURED_DATA), 
+	.WHOLE_LINE_READY_FLAG(WHOLE_LINE_READY_FLAG), 
+	//outputs:
+	.READ_ADDRESS(selected_column), 
+	.RESET_READY_FLAG(reset_buffer_ready_flag), 
+	.DATA_OUT(SELECTED_PIXEL_DATA)
+);
+
+
+
 reg [7:0] r;
-wire [7:0] received_data;
-reg pending_send = 0;
+reg uart_tx_data_ready = 0;
 
 uart_send uart_send (
 	.RST(RST), 
 	.CLK(CLK), 
-	.TXD(TXD),
+	.TXD(UART_TXD),
 	.DATA(r), 
-	.DATA_READY(pending_send), 
-	.IDLE()
+	.DATA_READY(uart_tx_data_ready), 
+	.IDLE(uart_tx_idle)
 );
+
+(* keep="soft" *)
+wire [7:0] unconnected_received_data;
 
 uart_receive uart_receive (
 	.RST(RST), 
 	.CLK(CLK), 
-	.RXD(RXD),
-	.DATA(received_data), 
+	.RXD(UART_RXD),
+	.DATA(unconnected_received_data), 
 	.RXD_READY(rxd_ready)
 );
 
 reg prev_rxd_ready;
-
+wire byte_just_received = rxd_ready&&!prev_rxd_ready;
 always@(posedge CLK)
 begin
 	prev_rxd_ready <= rxd_ready;
-	
-	if(rxd_ready&&!prev_rxd_ready)
+end
+
+(* keep="soft" *)
+wire [1:0] unconnected_LSBs_of_SELECTED_PIXEL_DATA = SELECTED_PIXEL_DATA[1:0];
+
+reg sending_frame = 0;
+always@(posedge CLK)
+begin
+	if(byte_just_received && !sending_frame)
 	begin
-		pending_send<=1;
-		r<=received_data;
+		sending_frame <= 1;
+		reset_buffer_ready_flag <= 0;
+	end
+	if(WHOLE_LINE_READY_FLAG && uart_tx_idle && sending_frame)
+	begin
+		uart_tx_data_ready<=1;
+		r<=SELECTED_PIXEL_DATA[9:2];
+		
+		if(selected_column+1 != V)
+		begin
+			selected_column <= selected_column+1'b1;
+			reset_buffer_ready_flag <= 0;
+		end
+		else
+		begin
+			selected_column <= 0;
+			if(selected_line+1 == H)
+			begin
+				sending_frame <= 0;
+				selected_line <= 0;
+				reset_buffer_ready_flag <= 0;
+			end
+			else
+			begin
+				selected_line <= selected_line+1'b1;
+			end
+		end
 	end
 	else
-		pending_send<=0;
+	begin
+		uart_tx_data_ready <= 0;
+		reset_buffer_ready_flag <= !sending_frame;
+	end
 end
  
 endmodule

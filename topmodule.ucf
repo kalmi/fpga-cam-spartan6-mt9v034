@@ -1,10 +1,59 @@
 //Serial port, debug and clock
 
 NET "clk" IOSTANDARD = LVCMOS33;
-NET "rxd" IOSTANDARD = LVCMOS33;
-NET "txd" IOSTANDARD = LVCMOS33;
+NET "uart_rxd" IOSTANDARD = LVCMOS33;
+NET "uart_txd" IOSTANDARD = LVCMOS33;
 
 
-NET "clk" LOC = P56;
-NET "rxd" LOC = P112;
-NET "txd" LOC = P111 | SLEW = "FAST";
+NET "clk" LOC = P56 | TNM_NET = "clk_net";
+NET "uart_rxd" LOC = P112;
+NET "uart_txd" LOC = P111 | SLEW = "FAST";
+
+TIMESPEC "TS_sysclk_net" = PERIOD "clk_net" 37.04 ns;
+
+//Camera module
+
+
+# PlanAhead Generated IO constraints 
+
+NET "cam_data[0]" IOSTANDARD = LVCMOS33;
+NET "cam_data[1]" IOSTANDARD = LVCMOS33;
+NET "cam_data[2]" IOSTANDARD = LVCMOS33;
+NET "cam_data[3]" IOSTANDARD = LVCMOS33;
+NET "cam_data[4]" IOSTANDARD = LVCMOS33;
+NET "cam_data[5]" IOSTANDARD = LVCMOS33;
+NET "cam_data[6]" IOSTANDARD = LVCMOS33;
+NET "cam_data[7]" IOSTANDARD = LVCMOS33;
+NET "cam_data[8]" IOSTANDARD = LVCMOS33;
+NET "cam_data[9]" IOSTANDARD = LVCMOS33;
+
+# PlanAhead Generated physical constraints 
+
+NET "cam_data[0]" LOC = P101;
+NET "cam_data[1]" LOC = P100;
+NET "cam_data[2]" LOC = P99;
+NET "cam_data[3]" LOC = P98;
+NET "cam_data[4]" LOC = P97;
+NET "cam_data[5]" LOC = P95;
+NET "cam_data[6]" LOC = P94;
+NET "cam_data[7]" LOC = P93;
+NET "cam_data[8]" LOC = P105;
+NET "cam_data[9]" LOC = P102;
+
+# PlanAhead Generated IO constraints 
+
+NET "cam_sysclk" IOSTANDARD = LVCMOS33;
+NET "cam_frame_valid" IOSTANDARD = LVCMOS33;
+NET "cam_line_valid" IOSTANDARD = LVCMOS33;
+NET "cam_pixclk" IOSTANDARD = LVCMOS33;
+
+# PlanAhead Generated physical constraints 
+
+NET "cam_sysclk" LOC = P84;
+NET "cam_frame_valid" LOC = P88;
+NET "cam_line_valid" LOC = P87;
+NET "cam_pixclk" LOC = P92 | TNM_NET = "pixclk_net";
+
+TIMESPEC "TS_pixclk_net" = PERIOD "pixclk_net" 37.04 ns;
+
+
