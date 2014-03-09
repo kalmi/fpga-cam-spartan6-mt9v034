@@ -72,5 +72,7 @@ module camera_test;
 	end
       
 	always #5 PIXCLK <= ~PIXCLK;
+	
+	initial #200 $finish;
 endmodule
 

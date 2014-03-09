@@ -117,7 +117,8 @@ module toplevel_test;
 	
 always #18.52 CLK <= ~CLK;
 always #18.52 PIXCLK <= ~PIXCLK;
-      
-
+	
+initial #100000 $finish;      
+	
 endmodule
 

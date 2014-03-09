@@ -60,4 +60,6 @@ module uart_send_test;
 
 	always #18.52 CLK <= ~CLK;	
 	
+	initial #25000 $finish;
+	
 endmodule

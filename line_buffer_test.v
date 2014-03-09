@@ -124,5 +124,8 @@ module line_buffer_test;
       
 	always #5 PIXCLK <= ~PIXCLK;
   always #5 CLK <= ~CLK;
+	
+	initial #450 $finish;
+	
 endmodule
 

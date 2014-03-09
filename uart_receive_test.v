@@ -80,5 +80,7 @@ module uart_receive_test;
 
 	always #18.52 CLK <= ~CLK;
 	
+	initial #32000 $finish;
+	
 endmodule
 
