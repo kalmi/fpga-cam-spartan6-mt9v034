@@ -47,9 +47,9 @@ line_buffer #(H,V) line_buffer (
 	.CURRENT_LINE(CAPTURED_CURRENT_LINE), 
 	.INTERESTING_LINE(selected_line), 
 	.DATA_IN(CAPTURED_DATA), 
+	.READ_ADDRESS(selected_column), 
 	.WHOLE_LINE_READY_FLAG(WHOLE_LINE_READY_FLAG), 
 	//outputs:
-	.READ_ADDRESS(selected_column), 
 	.RESET_READY_FLAG(reset_buffer_ready_flag), 
 	.DATA_OUT(SELECTED_PIXEL_DATA)
 );
