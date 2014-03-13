@@ -97,6 +97,7 @@ begin
 		sending_frame <= 1;
 		reset_buffer_ready_flag <= 0;
 	end
+	else
 	if(WHOLE_LINE_READY_FLAG && uart_tx_idle && sending_frame)
 	begin
 		uart_tx_data_ready<=1;
