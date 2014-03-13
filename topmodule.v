@@ -4,6 +4,9 @@ module topmodule #(parameter H = 752, parameter V = 480) (
 	input RST,
 	input CLK,
 	
+	//DEBUG
+	output [13:0] debug,
+	
 	//UART
 	input UART_RXD,
 	output UART_TXD,
@@ -130,5 +133,7 @@ begin
 		reset_buffer_ready_flag <= !sending_frame;
 	end
 end
- 
+
+assign debug = 0;
+
 endmodule
