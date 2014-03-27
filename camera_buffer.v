@@ -3,11 +3,11 @@
 module line_buffer #(parameter H = 752, parameter V = 480) ( 
 	input CLK,
 	input VALID_DATA,
-	input [$clog2(V)-1:0] CURRENT_COLUMN,
-	input [$clog2(H)-1:0] CURRENT_LINE,
-	input [$clog2(H)-1:0] INTERESTING_LINE,
+	input [$clog2(H)-1:0] CURRENT_COLUMN,
+	input [$clog2(V)-1:0] CURRENT_LINE,
+	input [$clog2(V)-1:0] INTERESTING_LINE,
 	input [7:0] DATA_IN,
-	input [$clog2(V)-1:0] READ_ADDRESS,
+	input [$clog2(H)-1:0] READ_ADDRESS,
 	input RESET_READY_FLAG,
 	output WHOLE_LINE_READY_FLAG,
 	output reg [7:0] DATA_OUT);
@@ -44,8 +44,8 @@ assign WHOLE_LINE_READY_FLAG = (state == READY);
 wire line_is_interesting = (CURRENT_LINE==INTERESTING_LINE);
 
 
-wire [$clog2(V)-1:0] read_address = READ_ADDRESS;
-wire [$clog2(V)-1:0] write_address = CURRENT_COLUMN;
+wire [$clog2(H)-1:0] read_address = READ_ADDRESS;
+wire [$clog2(H)-1:0] write_address = CURRENT_COLUMN;
 
 always @(posedge CLK) begin
 	if(VALID_DATA && state == RECORDING)

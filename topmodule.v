@@ -19,12 +19,12 @@ module topmodule #(parameter H = 752, parameter V = 480) (
 	output CAM_SYSCLK
 	);
 
-reg [$clog2(H)-1:0] selected_line = 0;
-reg [$clog2(V)-1:0] selected_column = 0;
+reg [$clog2(V)-1:0] selected_line = 0;
+reg [$clog2(H)-1:0] selected_column = 0;
 
 wire [9:0] CAPTURED_DATA;
-wire [$clog2(H)-1:0] CAPTURED_CURRENT_LINE;
-wire [$clog2(V)-1:0] CAPTURED_CURRENT_COLUMN;
+wire [$clog2(V)-1:0] CAPTURED_CURRENT_LINE;
+wire [$clog2(H)-1:0] CAPTURED_CURRENT_COLUMN;
 wire CAPTURED_PIXEL_VALID;
 assign CAM_SYSCLK = CLK;
 camera #(H,V) camera (
@@ -103,7 +103,7 @@ begin
 		uart_tx_data_ready<=1;
 		r<=SELECTED_PIXEL_DATA;
 		
-		if(selected_column+1 != V)
+		if(selected_column+1 != H)
 		begin
 			selected_column <= selected_column+1'b1;
 			reset_buffer_ready_flag <= 0;
@@ -111,7 +111,7 @@ begin
 		else
 		begin
 			selected_column <= 0;
-			if(selected_line+1 == H)
+			if(selected_line+1 == V)
 			begin
 				sending_frame <= 0;
 				selected_line <= 0;

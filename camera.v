@@ -6,8 +6,8 @@ module camera #(parameter H = 752, parameter V = 480) (
 	input FRAME_VALID,
 	input [9:0] DATA_IN,
 	output [9:0] DATA_OUT,
-	output [$clog2(H)-1:0] CURRENT_LINE,
-	output [$clog2(V)-1:0] CURRENT_COLUMN,
+	output [$clog2(V)-1:0] CURRENT_LINE,
+	output [$clog2(H)-1:0] CURRENT_COLUMN,
 	output PIXEL_VALID
 );
 
@@ -50,7 +50,7 @@ end
 
 wire line_ended = (prev_line_valid && !LINE_VALID);
 
-counter #(H) current_line_counter(
+counter #(V) current_line_counter(
 	.CLK(PIXCLK),
 	.RST(!FRAME_VALID||!frame_start_seen),
 	.MAXED(),
@@ -58,7 +58,7 @@ counter #(H) current_line_counter(
 	.VALUE(CURRENT_LINE)
 );
 
-counter #(V) current_column_counter(
+counter #(H) current_column_counter(
 	.CLK(PIXCLK),
 	.RST(!LINE_VALID||!frame_start_seen),
 	.MAXED(),
