@@ -34,6 +34,10 @@ module camera_test;
 		DATA_IN = 0;
 		// Test ignoring of random already ongoing frame
 		#42;
+		#42;
+		#42;
+		#42;
+		#42;
 		LINE_VALID = 0;
 		FRAME_VALID = 0;
 		#20;

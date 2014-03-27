@@ -40,7 +40,7 @@ camera #(H,V) camera (
 	.PIXEL_VALID(CAPTURED_PIXEL_VALID)
 );
 
-wire [9:0] SELECTED_PIXEL_DATA;
+wire [7:0] SELECTED_PIXEL_DATA;
 reg reset_buffer_ready_flag;
 line_buffer #(H,V) line_buffer (
 	//inputs:
@@ -49,7 +49,7 @@ line_buffer #(H,V) line_buffer (
 	.CURRENT_COLUMN(CAPTURED_CURRENT_COLUMN), 
 	.CURRENT_LINE(CAPTURED_CURRENT_LINE), 
 	.INTERESTING_LINE(selected_line), 
-	.DATA_IN(CAPTURED_DATA), 
+	.DATA_IN(CAPTURED_DATA[9:2]), 
 	.READ_ADDRESS(selected_column), 
 	.WHOLE_LINE_READY_FLAG(WHOLE_LINE_READY_FLAG), 
 	//outputs:
@@ -89,9 +89,6 @@ begin
 	prev_rxd_ready <= rxd_ready;
 end
 
-(* keep="soft" *)
-wire [1:0] unconnected_LSBs_of_SELECTED_PIXEL_DATA = SELECTED_PIXEL_DATA[1:0];
-
 reg sending_frame = 0;
 always@(posedge CLK)
 begin
@@ -104,7 +101,7 @@ begin
 	if(WHOLE_LINE_READY_FLAG && uart_tx_idle && sending_frame)
 	begin
 		uart_tx_data_ready<=1;
-		r<=SELECTED_PIXEL_DATA[9:2];
+		r<=SELECTED_PIXEL_DATA;
 		
 		if(selected_column+1 != V)
 		begin
@@ -134,6 +131,9 @@ begin
 	end
 end
 
-assign debug = 0;
+assign debug[0] = 1'b1;
+assign debug[1] = sending_frame;
+assign debug[2] = WHOLE_LINE_READY_FLAG;
+assign debug[13:3] = 0;
 
 endmodule

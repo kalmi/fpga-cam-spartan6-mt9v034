@@ -6,13 +6,13 @@ module line_buffer #(parameter H = 752, parameter V = 480) (
 	input [$clog2(V)-1:0] CURRENT_COLUMN,
 	input [$clog2(H)-1:0] CURRENT_LINE,
 	input [$clog2(H)-1:0] INTERESTING_LINE,
-	input [9:0] DATA_IN,
+	input [7:0] DATA_IN,
 	input [$clog2(V)-1:0] READ_ADDRESS,
 	input RESET_READY_FLAG,
 	output WHOLE_LINE_READY_FLAG,
-	output reg [9:0] DATA_OUT);
+	output reg [7:0] DATA_OUT);
 
-reg [9:0] mem[V-1:0];
+reg [7:0] mem[2250:0];
 
 
 localparam UNINTERESTED = 2'b00;

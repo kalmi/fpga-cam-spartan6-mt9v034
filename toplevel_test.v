@@ -78,7 +78,9 @@ module toplevel_test;
 		FRAME_VALID = 1;
 		DATA_IN = 0;
 		// Test ignoring of random already ongoing frame
-		#18.52;
+		#1852;
+		#1852;
+		#1852;
 		forever
 		begin
 			LINE_VALID = 0;
