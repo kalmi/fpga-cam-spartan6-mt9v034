@@ -66,11 +66,13 @@ reg [7:0] uart_tx_data;
 reg uart_tx_data_ready = 0;
 
 uart_send uart_send (
+	//inputs:
 	.RST(RST), 
 	.CLK(CLK), 
-	.TXD(UART_TXD),
 	.DATA(uart_tx_data), 
 	.DATA_READY(uart_tx_data_ready), 
+	//outputs:
+	.TXD(UART_TXD), 
 	.IDLE(uart_tx_idle)
 );
 
@@ -78,9 +80,11 @@ uart_send uart_send (
 wire [7:0] unconnected_received_data;
 
 uart_receive uart_receive (
+	//inputs:
 	.RST(RST), 
 	.CLK(CLK), 
 	.RXD(UART_RXD),
+	//outputs:
 	.DATA(unconnected_received_data), 
 	.RXD_READY(rxd_ready)
 );
