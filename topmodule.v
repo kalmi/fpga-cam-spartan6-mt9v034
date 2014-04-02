@@ -40,6 +40,9 @@ camera #(H,V) camera (
 	.PIXEL_VALID(CAPTURED_PIXEL_VALID)
 );
 
+(* keep="soft" *)
+wire [1:0] CAPTURED_DATA_unused_bits = CAPTURED_DATA[1:0]; 
+
 wire [7:0] SELECTED_PIXEL_DATA;
 reg reset_buffer_ready_flag;
 line_buffer #(H,V) line_buffer (
