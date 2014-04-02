@@ -62,14 +62,14 @@ line_buffer #(H,V) line_buffer (
 
 
 
-reg [7:0] r;
+reg [7:0] uart_tx_data;
 reg uart_tx_data_ready = 0;
 
 uart_send uart_send (
 	.RST(RST), 
 	.CLK(CLK), 
 	.TXD(UART_TXD),
-	.DATA(r), 
+	.DATA(uart_tx_data), 
 	.DATA_READY(uart_tx_data_ready), 
 	.IDLE(uart_tx_idle)
 );
@@ -104,7 +104,7 @@ begin
 	if(WHOLE_LINE_READY_FLAG && uart_tx_idle && sending_frame)
 	begin
 		uart_tx_data_ready<=1;
-		r<=SELECTED_PIXEL_DATA;
+		uart_tx_data<=SELECTED_PIXEL_DATA;
 		
 		if(selected_column+1 != H)
 		begin
