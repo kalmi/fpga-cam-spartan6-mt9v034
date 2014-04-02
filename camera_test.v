@@ -15,7 +15,7 @@ module camera_test;
 	wire PIXEL_VALID;
 
 	// Instantiate the Unit Under Test (UUT)
-	camera #(3,2) uut (
+	camera #(2,3) uut (
 		.PIXCLK(PIXCLK), 
 		.LINE_VALID(LINE_VALID), 
 		.FRAME_VALID(FRAME_VALID), 
@@ -77,6 +77,6 @@ module camera_test;
       
 	always #5 PIXCLK <= ~PIXCLK;
 	
-	initial #200 $finish;
+	initial #360 $finish;
 endmodule
 

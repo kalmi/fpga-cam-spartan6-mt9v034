@@ -15,7 +15,7 @@ module line_buffer_test;
 	wire PIXEL_VALID;
 
 	// Instantiate the Unit Under Test (UUT)
-	camera #(3,2) uut1 (
+	camera #(2,3) uut1 (
 		.PIXCLK(PIXCLK), 
 		.LINE_VALID(LINE_VALID), 
 		.FRAME_VALID(FRAME_VALID), 
@@ -35,16 +35,16 @@ module line_buffer_test;
 
 	// Outputs
 	wire WHOLE_LINE_READY_FLAG;
-	wire [9:0] DATA_OUT;
+	wire [7:0] DATA_OUT;
 
 	// Instantiate the Unit Under Test (UUT)
-	line_buffer #(3,2) uut2 (
+	line_buffer #(2,3) uut2 (
 		.CLK(CLK), 
 		.VALID_DATA(PIXEL_VALID), 
 		.CURRENT_COLUMN(CURRENT_COLUMN), 
 		.CURRENT_LINE(CURRENT_LINE), 
 		.INTERESTING_LINE(1), //Line #1 
-		.DATA_IN(CAMERA_DATA_OUT), 
+		.DATA_IN(CAMERA_DATA_OUT[9:2]), 
 		.READ_ADDRESS(READ_ADDRESS), 
 		.RESET_READY_FLAG(RESET_READY_FLAG), 
 		.WHOLE_LINE_READY_FLAG(WHOLE_LINE_READY_FLAG), 
@@ -83,28 +83,28 @@ module line_buffer_test;
 			#10;
 			
 			LINE_VALID = 1;
-			DATA_IN = 11;
+			DATA_IN = 11 <<2;
 			#10
 			LINE_VALID = 1;
-			DATA_IN = 12;
+			DATA_IN = 12 <<2;
 			#10
 			LINE_VALID = 0;
 			#10
 			
 			LINE_VALID = 1;
-			DATA_IN = 21;
+			DATA_IN = 21 <<2;
 			#10
 			LINE_VALID = 1;
-			DATA_IN = 22;
+			DATA_IN = 22 <<2;
 			#10
 			LINE_VALID = 0;
 			#10
 			
 			LINE_VALID = 1;
-			DATA_IN = 31;
+			DATA_IN = 31 <<2;
 			#10
 			LINE_VALID = 1;
-			DATA_IN = 32;
+			DATA_IN = 32 <<2;
 			#10
 			LINE_VALID = 0;
 			#30;

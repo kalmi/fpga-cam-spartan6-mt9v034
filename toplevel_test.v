@@ -18,7 +18,7 @@ module toplevel_test;
 	wire CAM_SYSCLK = CLK;
 
 	// Instantiate the Unit Under Test (UUT)
-	topmodule #(3,2) uut (
+	topmodule #(2,3) uut (
 		.RST(RST), 
 		.CLK(CLK), 
 		.UART_RXD(RXD), 
